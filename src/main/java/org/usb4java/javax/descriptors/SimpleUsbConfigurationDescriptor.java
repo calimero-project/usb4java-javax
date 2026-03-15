@@ -5,10 +5,10 @@
 
 package org.usb4java.javax.descriptors;
 
+import java.util.Objects;
+
 import javax.usb.UsbConfigurationDescriptor;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.usb4java.ConfigDescriptor;
 
 /**
@@ -132,16 +132,8 @@ public final class SimpleUsbConfigurationDescriptor extends SimpleUsbDescriptor
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(bDescriptorType())
-            .append(bLength())
-            .append(this.bConfigurationValue)
-            .append(this.bMaxPower)
-            .append(this.bNumInterfaces)
-            .append(this.bmAttributes)
-            .append(this.iConfiguration)
-            .append(this.wTotalLength)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), wTotalLength, bNumInterfaces, bConfigurationValue,
+                iConfiguration, bmAttributes, bMaxPower);
     }
 
     @Override
@@ -149,18 +141,14 @@ public final class SimpleUsbConfigurationDescriptor extends SimpleUsbDescriptor
     {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        final SimpleUsbConfigurationDescriptor other =
-            (SimpleUsbConfigurationDescriptor) obj;
-        return new EqualsBuilder()
-            .append(bLength(), other.bLength())
-            .append(bDescriptorType(), other.bDescriptorType())
-            .append(this.bConfigurationValue, other.bConfigurationValue)
-            .append(this.bMaxPower, other.bMaxPower)
-            .append(this.bNumInterfaces, other.bNumInterfaces)
-            .append(this.bmAttributes, other.bmAttributes)
-            .append(this.iConfiguration, other.iConfiguration)
-            .append(this.wTotalLength, other.wTotalLength)
-            .isEquals();
+        if (!super.equals(obj)) return false;
+        final SimpleUsbConfigurationDescriptor other = (SimpleUsbConfigurationDescriptor) obj;
+        return wTotalLength == other.wTotalLength
+                && bNumInterfaces == other.bNumInterfaces
+                && bConfigurationValue == other.bConfigurationValue
+                && iConfiguration == other.iConfiguration
+                && bmAttributes == other.bmAttributes
+                && bMaxPower == other.bMaxPower;
     }
 
     @Override

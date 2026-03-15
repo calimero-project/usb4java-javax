@@ -6,9 +6,8 @@
 package org.usb4java.javax;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.usb4java.javax.descriptors.SimpleUsbDeviceDescriptor;
 
 /**
@@ -60,12 +59,7 @@ final class DeviceId implements Serializable
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(this.busNumber)
-            .append(this.deviceAddress)
-            .append(this.portNumber)
-            .append(this.deviceDescriptor)
-            .toHashCode();
+        return Objects.hash(busNumber, deviceAddress, portNumber, deviceDescriptor);
     }
 
     @Override
@@ -74,12 +68,8 @@ final class DeviceId implements Serializable
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
         final DeviceId other = (DeviceId) obj;
-        return new EqualsBuilder()
-            .append(this.busNumber, other.busNumber)
-            .append(this.deviceAddress, other.deviceAddress)
-            .append(this.portNumber, other.portNumber)
-            .append(this.deviceDescriptor, other.deviceDescriptor)
-            .isEquals();
+        return busNumber == other.busNumber && deviceAddress == other.deviceAddress
+                && portNumber == other.portNumber && Objects.equals(deviceDescriptor, other.deviceDescriptor);
     }
 
     /**

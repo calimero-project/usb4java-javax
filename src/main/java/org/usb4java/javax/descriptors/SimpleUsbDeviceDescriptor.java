@@ -5,10 +5,10 @@
 
 package org.usb4java.javax.descriptors;
 
+import java.util.Objects;
+
 import javax.usb.UsbDeviceDescriptor;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.usb4java.DescriptorUtils;
 import org.usb4java.DeviceDescriptor;
 
@@ -213,22 +213,8 @@ public final class SimpleUsbDeviceDescriptor extends SimpleUsbDescriptor
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(bDescriptorType())
-            .append(bLength())
-            .append(this.bDeviceClass)
-            .append(this.bDeviceProtocol)
-            .append(this.bDeviceSubClass)
-            .append(this.bMaxPacketSize0)
-            .append(this.bNumConfigurations)
-            .append(this.bcdDevice)
-            .append(this.bcdUSB)
-            .append(this.iManufacturer)
-            .append(this.iProduct)
-            .append(this.iSerialNumber)
-            .append(this.idProduct)
-            .append(this.idVendor)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), bcdUSB, bDeviceClass, bDeviceSubClass, bDeviceProtocol, bMaxPacketSize0,
+                idVendor, idProduct, bcdDevice, iManufacturer, iProduct, iSerialNumber, bNumConfigurations);
     }
 
     @Override
@@ -236,23 +222,13 @@ public final class SimpleUsbDeviceDescriptor extends SimpleUsbDescriptor
     {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
         final SimpleUsbDeviceDescriptor other = (SimpleUsbDeviceDescriptor) obj;
-        return new EqualsBuilder()
-            .append(bLength(), other.bLength())
-            .append(bDescriptorType(), other.bDescriptorType())
-            .append(this.bDeviceClass, other.bDeviceClass)
-            .append(this.bDeviceProtocol, other.bDeviceProtocol)
-            .append(this.bDeviceSubClass, other.bDeviceSubClass)
-            .append(this.bMaxPacketSize0, other.bMaxPacketSize0)
-            .append(this.bNumConfigurations, other.bNumConfigurations)
-            .append(this.bcdDevice, other.bcdDevice)
-            .append(this.bcdUSB, other.bcdUSB)
-            .append(this.iManufacturer, other.iManufacturer)
-            .append(this.iProduct, other.iProduct)
-            .append(this.iSerialNumber, other.iSerialNumber)
-            .append(this.idProduct, other.idProduct)
-            .append(this.idVendor, other.idVendor)
-            .isEquals();
+        return bcdUSB == other.bcdUSB && bDeviceClass == other.bDeviceClass && bDeviceSubClass == other.bDeviceSubClass
+                && bDeviceProtocol == other.bDeviceProtocol && bMaxPacketSize0 == other.bMaxPacketSize0
+                && idVendor == other.idVendor && idProduct == other.idProduct && bcdDevice == other.bcdDevice
+                && iManufacturer == other.iManufacturer && iProduct == other.iProduct
+                && iSerialNumber == other.iSerialNumber && bNumConfigurations == other.bNumConfigurations;
     }
 
     @Override

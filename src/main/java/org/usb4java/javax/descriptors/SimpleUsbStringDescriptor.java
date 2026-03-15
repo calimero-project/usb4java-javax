@@ -8,11 +8,10 @@ package org.usb4java.javax.descriptors;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
+import java.util.Arrays;
+import java.util.Objects;
 
 import javax.usb.UsbStringDescriptor;
-
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * Simple string descriptor.
@@ -93,22 +92,15 @@ public final class SimpleUsbStringDescriptor extends SimpleUsbDescriptor
     {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
+        if (!super.equals(obj)) return false;
         final SimpleUsbStringDescriptor other = (SimpleUsbStringDescriptor) obj;
-        return new EqualsBuilder()
-            .append(bLength(), other.bLength())
-            .append(bDescriptorType(), other.bDescriptorType())
-            .append(this.bString, other.bString)
-            .isEquals();
+        return Objects.deepEquals(bString, other.bString);
     }
 
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(bDescriptorType())
-            .append(bLength())
-            .append(this.bString)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), Arrays.hashCode(bString));
     }
 
     @Override

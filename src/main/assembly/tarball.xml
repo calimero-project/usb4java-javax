@@ -36,7 +36,6 @@
       <excludes>
         <exclude>org.usb4java:usb4java</exclude>
         <exclude>org.usb4java:libusb4java</exclude>
-        <exclude>org.apache.commons:commons-lang3</exclude>
       </excludes>
     </dependencySet>
   </dependencySets>

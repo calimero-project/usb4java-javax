@@ -5,10 +5,10 @@
 
 package org.usb4java.javax.descriptors;
 
+import java.util.Objects;
+
 import javax.usb.UsbInterfaceDescriptor;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.usb4java.DescriptorUtils;
 import org.usb4java.InterfaceDescriptor;
 
@@ -146,17 +146,8 @@ public final class SimpleUsbInterfaceDescriptor extends SimpleUsbDescriptor
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(bDescriptorType())
-            .append(bLength())
-            .append(this.bAlternateSetting)
-            .append(this.bInterfaceClass)
-            .append(this.bInterfaceNumber)
-            .append(this.bInterfaceProtocol)
-            .append(this.bInterfaceSubClass)
-            .append(this.bNumEndpoints)
-            .append(this.iInterface)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), bInterfaceNumber, bAlternateSetting, bNumEndpoints,
+                bInterfaceClass, bInterfaceSubClass, bInterfaceProtocol, iInterface);
     }
 
     @Override
@@ -164,19 +155,12 @@ public final class SimpleUsbInterfaceDescriptor extends SimpleUsbDescriptor
     {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        final SimpleUsbInterfaceDescriptor other =
-            (SimpleUsbInterfaceDescriptor) obj;
-        return new EqualsBuilder()
-            .append(bLength(), other.bLength())
-            .append(bDescriptorType(), other.bDescriptorType())
-            .append(this.bAlternateSetting, other.bAlternateSetting)
-            .append(this.bInterfaceClass, other.bInterfaceClass)
-            .append(this.bInterfaceNumber, other.bInterfaceNumber)
-            .append(this.bInterfaceProtocol, other.bInterfaceProtocol)
-            .append(this.bInterfaceSubClass, other.bInterfaceSubClass)
-            .append(this.bNumEndpoints, other.bNumEndpoints)
-            .append(this.iInterface, other.iInterface)
-            .isEquals();
+        if (!super.equals(obj)) return false;
+        final SimpleUsbInterfaceDescriptor other = (SimpleUsbInterfaceDescriptor) obj;
+        return bInterfaceNumber == other.bInterfaceNumber && bAlternateSetting == other.bAlternateSetting
+                && bNumEndpoints == other.bNumEndpoints && bInterfaceClass == other.bInterfaceClass
+                && bInterfaceSubClass == other.bInterfaceSubClass && bInterfaceProtocol == other.bInterfaceProtocol
+                && iInterface == other.iInterface;
     }
 
     @Override

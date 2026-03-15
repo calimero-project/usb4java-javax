@@ -6,6 +6,7 @@
 package org.usb4java.javax.descriptors;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.usb.UsbDescriptor;
 
@@ -50,5 +51,19 @@ public abstract class SimpleUsbDescriptor implements UsbDescriptor,
     public final byte bDescriptorType()
     {
         return this.bDescriptorType;
+    }
+
+    @Override
+    public boolean equals(final Object obj)
+    {
+        if (obj == null || getClass() != obj.getClass()) return false;
+        final SimpleUsbDescriptor other = (SimpleUsbDescriptor) obj;
+        return bLength == other.bLength && bDescriptorType == other.bDescriptorType;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(bLength, bDescriptorType);
     }
 }

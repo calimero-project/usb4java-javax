@@ -5,10 +5,10 @@
 
 package org.usb4java.javax.descriptors;
 
+import java.util.Objects;
+
 import javax.usb.UsbEndpointDescriptor;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.usb4java.DescriptorUtils;
 import org.usb4java.EndpointDescriptor;
 
@@ -106,14 +106,7 @@ public final class SimpleUsbEndpointDescriptor extends SimpleUsbDescriptor
     @Override
     public int hashCode()
     {
-        return new HashCodeBuilder()
-            .append(bDescriptorType())
-            .append(bLength())
-            .append(this.bEndpointAddress)
-            .append(this.bInterval)
-            .append(this.bmAttributes)
-            .append(this.wMaxPacketSize)
-            .toHashCode();
+        return Objects.hash(super.hashCode(), bInterval, wMaxPacketSize, bmAttributes, bEndpointAddress);
     }
 
     @Override
@@ -121,16 +114,10 @@ public final class SimpleUsbEndpointDescriptor extends SimpleUsbDescriptor
     {
         if (this == obj) return true;
         if (obj == null || getClass() != obj.getClass()) return false;
-        final SimpleUsbEndpointDescriptor other =
-            (SimpleUsbEndpointDescriptor) obj;
-        return new EqualsBuilder()
-            .append(bLength(), other.bLength())
-            .append(bDescriptorType(), other.bDescriptorType())
-            .append(this.bEndpointAddress, other.bEndpointAddress)
-            .append(this.bInterval, other.bInterval)
-            .append(this.bmAttributes, other.bmAttributes)
-            .append(this.wMaxPacketSize, other.wMaxPacketSize)
-            .isEquals();
+        if (!super.equals(obj)) return false;
+        final SimpleUsbEndpointDescriptor other = (SimpleUsbEndpointDescriptor) obj;
+        return bInterval == other.bInterval && wMaxPacketSize == other.wMaxPacketSize
+                && bmAttributes == other.bmAttributes && bEndpointAddress == other.bEndpointAddress;
     }
 
     @Override
