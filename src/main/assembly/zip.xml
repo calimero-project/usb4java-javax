@@ -34,7 +34,8 @@
       <unpack>false</unpack>
       <scope>runtime</scope>
       <excludes>
-        <exclude>org.usb4java:usb4java</exclude>
+        <exclude>io.calimero:usb4java</exclude>
+        <exclude>io.calimero:libusb4java</exclude>
         <exclude>org.usb4java:libusb4java</exclude>
       </excludes>
     </dependencySet>
