@@ -1,6 +1,8 @@
 usb4java-javax
 ==============
-_Fork of usb4java/usb4java-javax, using Maven group id **io.calimero**_.
+_Fork of usb4java/usb4java-javax, using Maven groupId `io.calimero`_.
+
+#### Notable changes
 * Supports Java 8 or later
 * Removes the commons-lang3 dependency
 
